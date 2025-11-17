@@ -9,22 +9,22 @@ const app = express();
 app.use(express.json());
 
 app.get("/api/users", async (req, res) => {
-  const users = await PostgresHelper.query("SELECT * FROM users");
-  res.send(JSON.stringify(users));
+    const users = await PostgresHelper.query("SELECT * FROM users");
+    res.send(JSON.stringify(users));
 });
 
 app.get("/api/users/:id", async (req, res) => {
-  const getUserByIdController = new GetUserByIdController();
-  const { statusCode, body } = await getUserByIdController.execute(req);
-  res.status(statusCode).json(body);
+    const getUserByIdController = new GetUserByIdController();
+    const { statusCode, body } = await getUserByIdController.execute(req);
+    res.status(statusCode).json(body);
 });
 
 app.post("/api/users", async (req, res) => {
-  const createUserController = new CreateUserController();
-  const { statusCode, body } = await createUserController.execute(req);
-  res.status(statusCode).json(body);
+    const createUserController = new CreateUserController();
+    const { statusCode, body } = await createUserController.execute(req);
+    res.status(statusCode).json(body);
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("Server is running on port 3000");
+    console.log("Server is running on port 3000");
 });

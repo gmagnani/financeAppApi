@@ -3,22 +3,22 @@ import bcrypt from "bcrypt";
 import { PostgresCreateUserRepository } from "../repositories/postgres/create-user";
 
 export class CreateUserUseCase {
-  async execute(createUserParams) {
-    const userId = uuidv4();
+    async execute(createUserParams) {
+        const userId = uuidv4();
 
-    const hashedPassword = await bcrypt.hash(createUserParams.password, 10);
+        const hashedPassword = await bcrypt.hash(createUserParams.password, 10);
 
-    const newUser = {
-      id: userId,
-      first_name: createUserParams.first_name,
-      last_name: createUserParams.last_name,
-      email: createUserParams.email,
-      password: hashedPassword,
-    };
+        const newUser = {
+            id: userId,
+            first_name: createUserParams.first_name,
+            last_name: createUserParams.last_name,
+            email: createUserParams.email,
+            password: hashedPassword,
+        };
 
-    const postgresCreateUserRepository = new PostgresCreateUserRepository();
+        const postgresCreateUserRepository = new PostgresCreateUserRepository();
 
-    const createdUser = await postgresCreateUserRepository.execute(newUser);
-    return createdUser;
-}
+        const createdUser = await postgresCreateUserRepository.execute(newUser);
+        return createdUser;
+    }
 }
