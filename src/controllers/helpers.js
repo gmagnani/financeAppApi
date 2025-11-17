@@ -20,3 +20,19 @@ export const created = (body) => {
     body,
   };
 };
+
+export const ok = (body) => {
+  return {
+    statusCode: 200,
+    body,
+  };
+};
+
+export const notFound = (body) => {
+  return {
+    statusCode: 404,
+    body,
+  };    
+};
+
+

@@ -3,6 +3,7 @@ import express from "express";
 
 import { PostgresHelper } from ".src/db/postgres/helper.js";
 import { CreateUserController } from "./src/controllers/create-user.js";
+import { GetUserByIdController } from "./src/controllers/get-user-by-id.js";
 
 const app = express();
 app.use(express.json());
@@ -13,10 +14,9 @@ app.get("/api/users", async (req, res) => {
 });
 
 app.get("/api/users/:id", async (req, res) => {
-  const user = await PostgresHelper.query("SELECT * FROM users WHERE id = $1", [
-    req.params.id,
-  ]);
-  res.send(JSON.stringify(user));
+  const getUserByIdController = new GetUserByIdController();
+  const { statusCode, body } = await getUserByIdController.execute(req);
+  res.status(statusCode).json(body);
 });
 
 app.post("/api/users", async (req, res) => {
