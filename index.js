@@ -1,7 +1,6 @@
 import "dotenv/config.js";
 import express from "express";
 
-import { PostgresHelper } from ".src/db/postgres/helper.js";
 import { CreateUserController } from "./src/controllers/create-user.js";
 import { GetUserByIdController } from "./src/controllers/get-user-by-id.js";
 
