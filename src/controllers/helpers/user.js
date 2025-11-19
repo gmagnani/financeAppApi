@@ -19,6 +19,10 @@ export const invalidIdResponse = () => {
     return badRequest({ message: "User id is not valid" });
 };
 
+export const notFoundResponse = () => {
+    return badRequest({ message: "User not found" });
+};
+
 export const checkIfEmailIsValid = (email) => {
     return validator.isEmail(email);
 };

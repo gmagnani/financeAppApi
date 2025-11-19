@@ -3,6 +3,7 @@ import {
     checkIfIdIsValid,
     invalidIdResponse,
     notFound,
+    notFoundResponse,
     ok,
     serverError,
 } from "./helpers/index.js";
@@ -18,7 +19,7 @@ export class GetUserByIdController {
             const getUserByIdUseCase = new GetUserByIdUseCase();
             const user = await getUserByIdUseCase.execute(userId);
             if (!user) {
-                return notFound({ message: "User not found" });
+                return notFoundResponse();
             }
             return ok(user);
         } catch (error) {
