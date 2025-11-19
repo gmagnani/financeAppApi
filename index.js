@@ -5,11 +5,11 @@ import {
     CreateUserController,
     GetUserByIdController,
     UpdateUserController,
+    DeleteUserController,
 } from "./src/controllers/index.js";
 
 const app = express();
 app.use(express.json());
-
 
 app.get("/api/users/:id", async (req, res) => {
     const getUserByIdController = new GetUserByIdController();
@@ -26,6 +26,12 @@ app.post("/api/users", async (req, res) => {
 app.patch("/api/users/:id", async (req, res) => {
     const updateUserController = new UpdateUserController();
     const { statusCode, body } = await updateUserController.execute(req);
+    res.status(statusCode).json(body);
+});
+
+app.delete("/api/users/:id", async (req, res) => {
+    const deleteUserController = new DeleteUserController();
+    const { statusCode, body } = await deleteUserController.execute(req);
     res.status(statusCode).json(body);
 });
 
