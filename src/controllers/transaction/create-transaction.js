@@ -1,11 +1,15 @@
-import { serverError } from "../helpers/http.js";
 import {
     checkIfIdIsValid,
     invalidIdResponse,
     badRequest,
     created,
-} from "../helpers/user.js";
-import validator from "validator";
+    serverError,
+    validateRequiredFields,
+    checkIfAmountIsValid,
+    invalidAmountResponse,
+    checkIfTypeIsValid,
+    invalidTypeResponse,
+} from "../helpers/index.js";
 
 export class CreateTransactionController {
     constructor(createTransactionUseCase) {
@@ -22,12 +26,14 @@ export class CreateTransactionController {
                 "type",
             ];
 
-            for (const field of requiredFields) {
-                if (!params[field] || params[field].toString().trim().length === 0) {
-                    return badRequest({
-                        message: `Missing or empty field: ${field}`,
-                    });
-                }
+            const requiredFieldsValidation = validateRequiredFields(
+                params,
+                requiredFields
+            );
+            if (!requiredFieldsValidation.ok) {
+                return badRequest({
+                    message: `Missing or empty field: ${requiredFieldsValidation.missingField}`,
+                });
             }
 
             const userIdIsValid = checkIfIdIsValid(params.user_id);
@@ -35,35 +41,16 @@ export class CreateTransactionController {
                 return invalidIdResponse();
             }
 
-            if (params.amount <= 0) {
-                return badRequest({
-                    message: "Amount must be greater than zero",
-                });
-            }
-
-            const amountIsValid = validator.isCurrency(
-                params.amount.toString(),
-                {
-                    digits_after_decimal: [2],
-                    allow_negatives: false,
-                    decimal_separator: ".",
-                }
-            );
+            const amountIsValid = checkIfAmountIsValid(params.amount);
 
             if (!amountIsValid) {
-                return badRequest({
-                    message: "Amount must be a valid currency format",
-                });
+                return invalidAmountResponse();
             }
             const type = params.type.trim().toLowerCase();
 
-            const typeIsValid = ["income", "expense", "investment"].includes(
-                type
-            );
+            const typeIsValid = checkIfTypeIsValid(type);
             if (!typeIsValid) {
-                return badRequest({
-                    message: "Invalid type",
-                });
+                return invalidTypeResponse();
             }
 
             const createdTransaction =

@@ -15,9 +15,7 @@ export const invalidEmailResponse = () => {
     return badRequest({ message: "Invalid email format" });
 };
 
-export const invalidIdResponse = () => {
-    return badRequest({ message: "User id is not valid" });
-};
+
 
 export const notFoundResponse = () => {
     return badRequest({ message: "User not found" });
@@ -31,6 +29,3 @@ export const checkIfPasswordIsValid = (password) => {
     return password.length >= 6;
 };
 
-export const checkIfIdIsValid = (id) => {
-    return validator.isUUID(id);
-};
