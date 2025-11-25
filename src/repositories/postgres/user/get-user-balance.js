@@ -14,6 +14,6 @@ export class PostgresGetUserBalanceRepository {
             WHERE user_id = $1`,
             [userId]
         );
-        return result[0];
+        return { userId, ...result[0] };
     }
 }
