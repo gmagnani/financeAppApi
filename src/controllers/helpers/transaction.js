@@ -24,3 +24,7 @@ export const invalidAmountResponse = () => {
 export const invalidTypeResponse = () => {
     return badRequest({ message: "Invalid type" });
 };
+
+export const transactionNotFoundResponse = () => {
+    return badRequest({ message: "Transaction not found" });
+};
