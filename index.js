@@ -6,6 +6,7 @@ import {
     makeCreateUserController,
     makeUpdateUserController,
     makeDeleteUserController,
+    makeGetUserBalanceController,
 } from "./src/factories/controllers/user.js";
 import {
     makeCreateTransactionController,
@@ -66,6 +67,13 @@ app.delete("/api/transactions/:id", async (req, res) => {
     const { statusCode, body } = await deleteTransactionController.execute(req);
     res.status(statusCode).json(body);
 });
+
+app.get("/api/users/:userId/balance", async (req, res) => {
+    const getUserBalanceController = makeGetUserBalanceController();
+    const { statusCode, body } = await getUserBalanceController.execute(req);
+    res.status(statusCode).json(body);
+});
+
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);
