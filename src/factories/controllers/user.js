@@ -3,20 +3,20 @@ import {
     GetUserByIdController,
     UpdateUserController,
     DeleteUserController,
-} from "./src/controllers/index.js";
+} from "../../controllers/index.js";
 import {
     PostgresGetUserByIdRepository,
     PostgresCreateUserRepository,
     PostgresUpdateUserRepository,
     PostgresDeleteUserRepository,
     PostgresGetUserByEmailRepository,
-} from "./src/repositories/postgres/index.js";
+} from "../../repositories/postgres/index.js";
 import {
     GetUserByIdUseCase,
     CreateUserUseCase,
     UpdateUserUseCase,
     DeleteUserUseCase,
-} from "./src/use-cases/index.js";
+} from "../../use-cases/index.js";
 
 export const makeGetUserByIdController = () => {
     const getUserByIdRepository = new PostgresGetUserByIdRepository();
