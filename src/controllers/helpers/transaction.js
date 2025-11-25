@@ -2,7 +2,10 @@ import { badRequest } from "../helpers/index.js";
 import validator from "validator";
 
 export const checkIfAmountIsValid = (amount) => {
-    return validator.isCurrency(amount.toString(), {
+    if (typeof amount !== "number") {
+        return false;
+    }
+    return validator.isCurrency(amount.toFixed(2), {
         digits_after_decimal: [2],
         allow_negatives: false,
         decimal_separator: ".",
@@ -12,7 +15,7 @@ export const checkIfAmountIsValid = (amount) => {
 export const checkIfTypeIsValid = (type) => {
     const validTypes = ["income", "expense", "investment"];
     return validTypes.includes(type);
-}
+};
 
 export const invalidAmountResponse = () => {
     return badRequest({ message: "Amount must be a valid currency format" });
