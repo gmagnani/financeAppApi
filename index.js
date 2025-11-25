@@ -7,7 +7,11 @@ import {
     makeUpdateUserController,
     makeDeleteUserController,
 } from "./src/factories/controllers/user.js";
-import { makeCreateTransactionController, makeGetTransactionsByUserIdController} from "./src/factories/controllers/transaction.js";
+import {
+    makeCreateTransactionController,
+    makeGetTransactionsByUserIdController,
+    makeUpdateTransactionController,
+} from "./src/factories/controllers/transaction.js";
 
 const app = express();
 app.use(express.json());
@@ -38,9 +42,7 @@ app.delete("/api/users/:id", async (req, res) => {
 
 app.post("/api/transactions", async (req, res) => {
     const createTransactionController = makeCreateTransactionController();
-    const { statusCode, body } = await createTransactionController.execute(
-        req
-    );
+    const { statusCode, body } = await createTransactionController.execute(req);
     res.status(statusCode).json(body);
 });
 
@@ -52,6 +54,11 @@ app.get("/api/transactions", async (req, res) => {
     res.status(statusCode).json(body);
 });
 
+app.patch("/api/transactions/:id", async (req, res) => {
+    const updateTransactionController = makeUpdateTransactionController();
+    const { statusCode, body } = await updateTransactionController.execute(req);
+    res.status(statusCode).json(body);
+});
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);
