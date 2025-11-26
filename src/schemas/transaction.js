@@ -28,7 +28,7 @@ export const createTransactionSchema = z.object({
                 decimal_separator: ".",
             })
         ),
-    type: z.enum(["income", "expense", "investment"]),
+    type: z.enum(["INCOME", "EXPENSE", "INVESTMENT"]),
 });
 
 export const updateTransactionSchema = createTransactionSchema
