@@ -32,7 +32,7 @@ export class UpdateUserController {
             return ok(updatedUser);
         } catch (error) {
             if (error instanceof ZodError) {
-                return badRequest({ message: error.errors[0].message });
+                return badRequest({ message: error.issues[0].message });
             }
             if (error instanceof EmailAlreadyInUseError) {
                 return badRequest({ message: error.message });

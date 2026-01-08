@@ -25,7 +25,7 @@ export class UpdateTransactionController {
         } catch (error) {
             console.log(error);
             if (error instanceof ZodError) {
-                return badRequest({ message: error.errors[0].message });
+                return badRequest({ message: error.issues[0].message });
             }
             if (error instanceof UserNotFoundError) {
                 return notFoundResponse();

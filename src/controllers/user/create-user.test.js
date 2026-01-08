@@ -1,4 +1,3 @@
-import { it } from "node:test";
 import { CreateUserController } from "../index.js";
 
 describe("Create User Controller", () => {
