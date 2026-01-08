@@ -49,4 +49,62 @@ describe("Create User Controller", () => {
         // Assert
         expect(result.statusCode).toBe(400);
     });
+
+    it("should return 400 if last_name is missing", async () => {
+        // Arrange
+        const createUserUseCase = new CreateUserUseCaseStub();
+        const createUserController = new CreateUserController(
+            createUserUseCase
+        );
+        const httpRequest = {
+            body: {
+                first_name: "John",
+                email: "testuser@example.com",
+                password: "password123",
+            },
+        };
+        // Act
+        const result = await createUserController.execute(httpRequest);
+        // Assert
+        expect(result.statusCode).toBe(400);
+    });
+
+    it("should return 400 if email is missing", async () => {
+        // Arrange
+        const createUserUseCase = new CreateUserUseCaseStub();
+        const createUserController = new CreateUserController(
+            createUserUseCase
+        );
+        const httpRequest = {
+            body: {
+                first_name: "John",
+                last_name: "Doe",
+                password: "password 123",
+            },
+        };
+        // Act
+        const result = await createUserController.execute(httpRequest);
+        // Assert
+        expect(result.statusCode).toBe(400);
+    });
+
+    it("should return 400 if password is missing", async () => {
+        // Arrange
+        const createUserUseCase = new CreateUserUseCaseStub();
+        const createUserController = new CreateUserController(
+            createUserUseCase
+        );
+        const httpRequest = {
+            body: {
+                first_name: "John",
+                last_name: "Doe",
+                email: "testuser@example.com",
+            },
+        };
+        // Act
+        const result = await createUserController.execute(httpRequest);
+        // Assert
+        expect(result.statusCode).toBe(400);
+    }); 
+
 });
